@@ -278,10 +278,11 @@ This implementation fully addresses all assignment evaluation stages:
 
 ## 👨‍💻 Author & Attribution
 
-**Vikas Singh** – Full‑Stack Developer  
-- GitHub: [@vikasgithubpro](https://github.com/vikasgithubpro)  
-- LinkedIn: [Vikas Singh](https://www.linkedin.com/in/vikas-singh-b4b4ab1aa)  
-- Portfolio: [serene-swan-9d450a.netlify.app](https://serene-swan-9d450a.netlify.app/)
+### 👤 Connect with Me  
+**GitHub:** [Vikas Singh - GitHub](https://github.com/vikasgithubpro)  
+**LinkedIn:** [Vikas Singh - LinkedIn](https://www.linkedin.com/in/vikas-singh-b4b4ab1aa)  
+**Portfolio:** [Vikas Singh – Portfolio](https://serene-swan-9d450a.netlify.app/)
+
 
 **Submission Details**  
 - Created for: Lyftr AI Full‑Stack Developer Assignment  
