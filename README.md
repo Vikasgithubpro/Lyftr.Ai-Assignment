@@ -173,25 +173,25 @@ Used to test multi-page traversal and scroll depth tracking.
 ![Home](./Screenshots/home-hero.png.png)
 
 #### URL Input + Scraping Options
-![URL Input](./screenshots/url-input-and-options.png)
+![URL Input](./screenshots/url-input-and-options.png.png)
 
 #### Overview Metrics
-![Overview](./screenshots/scrape-overview-metrics.png)
+![Overview](./screenshots/scrape-overview-metrics.png.png)
 
 #### Page Metadata
-![Metadata](./screenshots/page-metadata.png)
+![Metadata](./screenshots/page-metadata.png.png)
 
 #### Hero Section Viewer
-![Hero Section](./screenshots/section-viewer-hero.png)
+![Hero Section](./screenshots/section-viewer-hero.png.png)
 
 #### Visualization Charts
-![Charts](./screenshots/visualization-charts.png)
+![Charts](./screenshots/visualization-charts.png.png)
 
 #### Dashboard Main
-![Dashboard Main](./screenshots/dashboard-main.png)
+![Dashboard Main](./screenshots/dashboard-main.png.png)
 
 #### System Status Dashboard
-![Dashboard Status](./screenshots/dashboard-system-status.png)
+![Dashboard Status](./screenshots/dashboard-system-status.png.png)
 
 ---
 
