@@ -1,0 +1,16 @@
+{
+  "static_scraping": true,
+  "js_rendering": true,
+  "click_tabs": true,
+  "load_more_clicks": true,
+  "infinite_scroll": true,
+  "pagination_links": true,
+  "noise_filtering": true,
+  "html_truncation": true,
+  "section_detection": true,
+  "error_handling": true,
+  "absolute_urls": true,
+  "dark_mode": true,
+  "visualization": true,
+  "export_formats": true
+}

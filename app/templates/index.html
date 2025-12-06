@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 Universal Website Scraper | Lyftr AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            /* Light Theme */
+            --color-primary: #2563eb;
+            --color-primary-light: #3b82f6;
+            --color-primary-dark: #1d4ed8;
+            --color-secondary: #7c3aed;
+            --color-success: #059669;
+            --color-warning: #d97706;
+            --color-error: #dc2626;
+            --color-background: #f8fafc;
+            --color-surface: #ffffff;
+            --color-text: #1e293b;
+            --color-text-light: #64748b;
+            --color-border: #e2e8f0;
+            --color-shadow: rgba(0, 0, 0, 0.1);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-success: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --gradient-error: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+        }
+
+        .dark {
+            /* Dark Theme */
+            --color-primary: #3b82f6;
+            --color-primary-light: #60a5fa;
+            --color-primary-dark: #1d4ed8;
+            --color-secondary: #8b5cf6;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-error: #ef4444;
+            --color-background: #0f172a;
+            --color-surface: #1e293b;
+            --color-text: #f1f5f9;
+            --color-text-light: #94a3b8;
+            --color-border: #334155;
+            --color-shadow: rgba(0, 0, 0, 0.3);
+            --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --gradient-error: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px var(--color-shadow);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--color-text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-link.active {
+            color: var(--color-primary);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+            box-shadow: 0 2px 8px var(--color-shadow);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--color-text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        @media (min-width: 1024px) {
+            .main-content {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        /* Card Styling */
+        .card {
+            background: var(--color-surface);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 6px var(--color-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px var(--color-shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Form Styling */
+        .url-form {
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 0.75rem;
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--color-text-light);
+        }
+
+        /* Button Styling */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--color-surface);
+            color: var(--color-text);
+            border: 2px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .btn-success {
+            background: var(--gradient-success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--gradient-warning);
+            color: white;
+        }
+
+        .btn-error {
+            background: var(--gradient-error);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .quick-btn {
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--color-text-light);
+            font-size: 0.875rem;
+        }
+
+        /* Progress */
+        .progress-container {
+            margin: 2rem 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--color-text-light);
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            color: var(--color-primary);
+        }
+
+        .tab.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Sections */
+        .sections-container {
+            margin-top: 2rem;
+        }
+
+        .section-card {
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-type {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .section-type.hero { background: rgba(37, 99, 235, 0.1); color: var(--color-primary); }
+        .section-type.nav { background: rgba(124, 58, 237, 0.1); color: var(--color-secondary); }
+        .section-type.footer { background: rgba(5, 150, 105, 0.1); color: var(--color-success); }
+        .section-type.article { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
+        .section-type.list { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+        .section-type.grid { background: rgba(139, 92, 246, 0.1); color: var(--color-secondary); }
+
+        .section-content {
+            padding: 1.5rem;
+            border-top: 1px solid var(--color-border);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .section-card.expanded .section-content {
+            max-height: 1000px;
+        }
+
+        .section-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--color-text-light);
+        }
+
+        .section-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 1rem 0;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--color-border);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Error */
+        .error-container {
+            padding: 1.5rem;
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid var(--color-error);
+            border-radius: 0.75rem;
+            margin: 1rem 0;
+        }
+
+        .error-title {
+            color: var(--color-error);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Results */
+        .results-container {
+            margin-top: 2rem;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Export Options */
+        .export-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--color-border);
+            color: var(--color-text-light);
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-background);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-text-light);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            gap: 0.25rem;
+        }
+
+        .badge-primary {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-primary);
+        }
+
+        .badge-success {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--color-success);
+        }
+
+        .badge-warning {
+            background: rgba(217, 119, 6, 0.1);
+            color: var(--color-warning);
+        }
+
+        .badge-error {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--color-error);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-surface);
+            color: var(--color-text);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px var(--color-shadow);
+            border: 1px solid var(--color-border);
+            z-index: 1000;
+        }
+
+        /* JSON Viewer */
+        .json-viewer {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .json-key { color: var(--color-primary); }
+        .json-string { color: var(--color-success); }
+        .json-number { color: var(--color-warning); }
+        .json-boolean { color: var(--color-error); }
+        .json-null { color: var(--color-text-light); }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+
+        .toast {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 4px 12px var(--color-shadow);
+            transform: translateX(100%);
+            opacity: 0;
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-success {
+            border-left: 4px solid var(--color-success);
+        }
+
+        .toast-error {
+            border-left: 4px solid var(--color-error);
+        }
+
+        .toast-warning {
+            border-left: 4px solid var(--color-warning);
+        }
+
+        .toast-info {
+            border-left: 4px solid var(--color-primary);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--color-text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Preview */
+        .preview-container {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .preview-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-text {
+            color: var(--color-text-light);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            max-height: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    <span class="logo-icon">🌐</span>
+                    <span>Universal Scraper</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/dashboard" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-link" id="docs-link">
+                        <i class="fas fa-book"></i>
+                        <span>Docs</span>
+                    </a>
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Universal Website Scraper</h1>
+            <p>Extract structured data from any website with our powerful scraping engine. Supports static & JavaScript-rendered content.</p>
+        </section>
+
+        <!-- Main Grid -->
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- URL Input Card -->
+                <div class="card url-form">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-globe"></i>
+                            Enter Website URL
+                        </h2>
+                        <div class="badge badge-primary">
+                            <i class="fas fa-bolt"></i>
+                            Powered by AI
+                        </div>
+                    </div>
+
+                    <form id="scrape-form">
+                        <div class="form-group">
+                            <label for="url" class="form-label">Website URL</label>
+                            <input 
+                                type="url" 
+                                id="url" 
+                                class="form-input" 
+                                placeholder="https://example.com"
+                                value="https://en.wikipedia.org/wiki/Artificial_intelligence"
+                                required
+                            >
+                            <div class="form-hint">
+                                <small>Enter a valid http:// or https:// URL</small>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="quick-actions">
+                            <button type="button" class="btn btn-secondary quick-btn" data-url="https://en.wikipedia.org/wiki/Artificial_intelligence">
+                                <i class="fab fa-wikipedia-w"></i>
+                                Wikipedia
+                            </button>
+                            <button type="button" class="btn btn-secondary quick-btn" data-url="https://vercel.com/">
+                                <i class="fas fa-bolt"></i>
+                                Vercel (JS)
+                            </button>
+                            <button type="button" class="btn btn-secondary quick-btn" data-url="https://news.ycombinator.com/">
+                                <i class="fab fa-hacker-news"></i>
+                                Hacker News
+                            </button>
+                            <button type="button" class="btn btn-secondary quick-btn" data-url="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
+                                <i class="fab fa-mdn"></i>
+                                MDN Docs
+                            </button>
+                        </div>
+
+                        <!-- Scrape Options -->
+                        <div class="form-group">
+                            <label class="form-label">Scraping Options</label>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary active" id="option-auto">
+                                    <i class="fas fa-robot"></i>
+                                    Auto Detect
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="option-static">
+                                    <i class="fas fa-file-code"></i>
+                                    Static Only
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="option-js">
+                                    <i class="fas fa-code"></i>
+                                    Force JS
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary" id="scrape-btn">
+                                <i class="fas fa-spider"></i>
+                                Start Scraping
+                            </button>
+                            <button type="button" class="btn btn-success" id="download-btn" disabled>
+                                <i class="fas fa-download"></i>
+                                Download JSON
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Progress -->
+                    <div class="progress-container" id="progress-container" style="display: none;">
+                        <div class="progress-header">
+                            <span>Scraping in progress...</span>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <div class="progress-details" id="progress-details">
+                            <small>Initializing...</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Card -->
+                <div class="card results-container" id="results-container" style="display: none;">
+                    <div class="results-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-chart-pie"></i>
+                            Scraping Results
+                        </h2>
+                        <div class="badge" id="strategy-badge">Static</div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="tabs">
+                        <button class="tab active" data-tab="overview">Overview</button>
+                        <button class="tab" data-tab="sections">Sections</button>
+                        <button class="tab" data-tab="visualization">Visualization</button>
+                        <button class="tab" data-tab="raw">Raw Data</button>
+                    </div>
+
+                    <!-- Tab Contents -->
+                    <div class="tab-content active" id="tab-overview">
+                        <!-- Stats -->
+                        <div class="stats-grid">
+                            <div class="card stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <div class="stat-value" id="stat-sections">0</div>
+                                <div class="stat-label">Sections</div>
+                            </div>
+                            <div class="card stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-font"></i>
+                                </div>
+                                <div class="stat-value" id="stat-characters">0</div>
+                                <div class="stat-label">Characters</div>
+                            </div>
+                            <div class="card stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                                <div class="stat-value" id="stat-links">0</div>
+                                <div class="stat-label">Links</div>
+                            </div>
+                            <div class="card stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-image"></i>
+                                </div>
+                                <div class="stat-value" id="stat-images">0</div>
+                                <div class="stat-label">Images</div>
+                            </div>
+                        </div>
+
+                        <!-- Metadata -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-info-circle"></i>
+                                    Page Information
+                                </h3>
+                            </div>
+                            <div class="metadata-grid" id="metadata">
+                                <!-- Filled by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Interactions -->
+                        <div class="card" id="interactions-card" style="display: none;">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-mouse-pointer"></i>
+                                    Interactions
+                                </h3>
+                            </div>
+                            <div id="interactions-content">
+                                <!-- Filled by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-sections">
+                        <div class="sections-container" id="sections-list">
+                            <!-- Sections will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-visualization">
+                        <div class="chart-container">
+                            <canvas id="content-chart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="type-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="tab-raw">
+                        <div class="json-viewer" id="raw-json">
+                            {/* JSON will be displayed here */}
+                        </div>
+                    </div>
+
+                    <!-- Export Options -->
+                    <div class="export-options">
+                        <button class="btn btn-secondary" id="export-json">
+                            <i class="fas fa-file-code"></i>
+                            Export JSON
+                        </button>
+                        <button class="btn btn-secondary" id="export-csv">
+                            <i class="fas fa-file-csv"></i>
+                            Export CSV
+                        </button>
+                        <button class="btn btn-secondary" id="export-markdown">
+                            <i class="fas fa-file-alt"></i>
+                            Export Markdown
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Stats Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-chart-line"></i>
+                            Statistics
+                        </h2>
+                    </div>
+                    <div class="stats-content">
+                        <div class="stat-item">
+                            <div class="stat-label">Total Scrapes</div>
+                            <div class="stat-value" id="total-scrapes">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Success Rate</div>
+                            <div class="stat-value" id="success-rate">0%</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Avg. Time</div>
+                            <div class="stat-value" id="avg-time">0s</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Tips & Tricks
+                        </h2>
+                    </div>
+                    <div class="tips-list">
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle text-success"></i>
+                            <span>Use https:// for secure sites</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle text-success"></i>
+                            <span>Try JS mode for modern websites</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle text-success"></i>
+                            <span>Check the dashboard for insights</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-exclamation-triangle text-warning"></i>
+                            <span>Avoid sites with heavy anti-bot</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Scrapes -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-history"></i>
+                            Recent Scrapes
+                        </h2>
+                    </div>
+                    <div class="recent-list" id="recent-list">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <p>No recent scrapes yet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Info -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-code"></i>
+                            API Access
+                        </h2>
+                    </div>
+                    <div class="api-info">
+                        <code>POST /scrape</code>
+                        <button class="btn btn-secondary btn-sm" id="copy-api">
+                            <i class="fas fa-copy"></i>
+                            Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Universal Website Scraper v2.0 • Made with Vikas Singh for Lyftr AI Assignment</p>
+            <p class="footer-links">
+                <a href="https://github.com/vikasgithubpro" class="text-light">GitHub</a>
+                <a href="https://www.linkedin.com/in/vikas-singh-b4b4ab1aa" class="text-light">LinkedIn</a>
+                <a href="https://serene-swan-9d450a.netlify.app/" class="text-light">Portfolio</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const scrapeForm = document.getElementById('scrape-form');
+        const urlInput = document.getElementById('url');
+        const scrapeBtn = document.getElementById('scrape-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressFill = document.getElementById('progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
+        const progressDetails = document.getElementById('progress-details');
+        const resultsContainer = document.getElementById('results-container');
+        const sectionsList = document.getElementById('sections-list');
+        const metadata = document.getElementById('metadata');
+        const interactionsCard = document.getElementById('interactions-card');
+        const interactionsContent = document.getElementById('interactions-content');
+        const strategyBadge = document.getElementById('strategy-badge');
+        const themeToggle = document.getElementById('theme-toggle');
+        const toastContainer = document.getElementById('toast-container');
+        
+        // Stats elements
+        const statSections = document.getElementById('stat-sections');
+        const statCharacters = document.getElementById('stat-characters');
+        const statLinks = document.getElementById('stat-links');
+        const statImages = document.getElementById('stat-images');
+        
+        // Charts
+        let contentChart = null;
+        let typeChart = null;
+        
+        // State
+        let lastResponse = null;
+        let currentTheme = 'dark';
+        let scrapingInProgress = false;
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            initQuickActions();
+            initTabs();
+            initExportButtons();
+            updateStats();
+            loadRecentScrapes();
+        });
+        
+        // Theme Toggle
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            setTheme(savedTheme);
+            
+            themeToggle.addEventListener('click', () => {
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+                showToast('Theme changed', 'success');
+            });
+        }
+        
+        function setTheme(theme) {
+            currentTheme = theme;
+            document.documentElement.className = theme;
+            localStorage.setItem('theme', theme);
+            
+            const icon = themeToggle.querySelector('i');
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+        
+        // Quick Actions
+        function initQuickActions() {
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const url = btn.getAttribute('data-url');
+                    urlInput.value = url;
+                    showToast(`Loaded: ${url.split('/')[2]}`, 'info');
+                });
+            });
+            
+            // Scraping options
+            document.querySelectorAll('#option-auto, #option-static, #option-js').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#option-auto, #option-static, #option-js').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    btn.classList.add('active');
+                    showToast(`Mode: ${btn.textContent.trim()}`, 'info');
+                });
+            });
+        }
+        
+        // Tabs
+        function initTabs() {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
+                    
+                    // Initialize charts if needed
+                    if (tabId === 'visualization' && lastResponse) {
+                        initCharts();
+                    }
+                });
+            });
+        }
+        
+        // Form Submission
+        scrapeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (scrapingInProgress) {
+                showToast('Scraping already in progress', 'warning');
+                return;
+            }
+            
+            const url = urlInput.value.trim();
+            if (!url) {
+                showToast('Please enter a URL', 'error');
+                return;
+            }
+            
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                showToast('URL must start with http:// or https://', 'error');
+                return;
+            }
+            
+            startScraping(url);
+        });
+        
+        // Scraping Functions
+        function startScraping(url) {
+            scrapingInProgress = true;
+            
+            // Reset UI
+            resultsContainer.style.display = 'none';
+            progressContainer.style.display = 'block';
+            progressFill.style.width = '0%';
+            progressPercent.textContent = '0%';
+            progressDetails.innerHTML = '<small>Initializing scraping engine...</small>';
+            
+            // Disable button
+            scrapeBtn.disabled = true;
+            scrapeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Scraping...';
+            
+            // Start progress simulation
+            simulateProgress();
+            
+            // Make API request
+            fetch('/scrape', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url: url })
+            })
+            .then(async response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                scrapingInProgress = false;
+                lastResponse = data;
+                
+                // Update UI with results
+                updateResults(data);
+                updateProgress(100, 'Scraping complete!');
+                
+                // Show results
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                    resultsContainer.style.display = 'block';
+                    resultsContainer.scrollIntoView({ behavior: 'smooth' });
+                    showToast('Scraping completed successfully!', 'success');
+                }, 500);
+                
+                // Add to recent scrapes
+                addToRecentScrapes(url, data.result);
+            })
+            .catch(error => {
+                scrapingInProgress = false;
+                updateProgress(100, 'Error occurred');
+                
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                    showToast(`Scraping failed: ${error.message}`, 'error');
+                }, 500);
+                
+                console.error('Scraping error:', error);
+            })
+            .finally(() => {
+                scrapeBtn.disabled = false;
+                scrapeBtn.innerHTML = '<i class="fas fa-spider"></i> Start Scraping';
+            });
+        }
+        
+        function simulateProgress() {
+            let progress = 0;
+            const steps = [
+                'Fetching HTML...',
+                'Parsing content...',
+                'Detecting sections...',
+                'Extracting metadata...',
+                'Analyzing structure...',
+                'Finalizing results...'
+            ];
+            
+            const interval = setInterval(() => {
+                if (!scrapingInProgress) {
+                    clearInterval(interval);
+                    return;
+                }
+                
+                progress += 2;
+                if (progress > 90) progress = 90;
+                
+                const stepIndex = Math.floor(progress / 15);
+                updateProgress(progress, steps[stepIndex] || 'Processing...');
+                
+                if (progress >= 90) {
+                    clearInterval(interval);
+                }
+            }, 300);
+        }
+        
+        function updateProgress(percent, message) {
+            progressFill.style.width = `${percent}%`;
+            progressPercent.textContent = `${percent}%`;
+            progressDetails.innerHTML = `<small>${message}</small>`;
+        }
+        
+        // Results Display
+        function updateResults(data) {
+            const result = data.result;
+            
+            // Update stats
+            const sections = result.sections || [];
+            const totalText = sections.reduce((sum, s) => sum + (s.content.text?.length || 0), 0);
+            const totalLinks = sections.reduce((sum, s) => sum + (s.content.links?.length || 0), 0);
+            const totalImages = sections.reduce((sum, s) => sum + (s.content.images?.length || 0), 0);
+            
+            statSections.textContent = sections.length;
+            statCharacters.textContent = totalText.toLocaleString();
+            statLinks.textContent = totalLinks;
+            statImages.textContent = totalImages;
+            
+            // Update strategy badge
+            const strategy = result.meta.strategy || 'static';
+            strategyBadge.textContent = strategy.toUpperCase();
+            strategyBadge.className = 'badge ' + (
+                strategy === 'js' ? 'badge-success' :
+                strategy === 'static+js' ? 'badge-warning' :
+                'badge-primary'
+            );
+            
+            // Update metadata
+            metadata.innerHTML = `
+                <div class="metadata-item">
+                    <strong>Title:</strong> ${result.meta.title || 'N/A'}
+                </div>
+                <div class="metadata-item">
+                    <strong>Description:</strong> ${result.meta.description ? result.meta.description.substring(0, 100) + '...' : 'N/A'}
+                </div>
+                <div class="metadata-item">
+                    <strong>Language:</strong> ${result.meta.language || 'N/A'}
+                </div>
+                <div class="metadata-item">
+                    <strong>Canonical:</strong> ${result.meta.canonical ? `<a href="${result.meta.canonical}" target="_blank">${result.meta.canonical}</a>` : 'N/A'}
+                </div>
+                <div class="metadata-item">
+                    <strong>Scraped At:</strong> ${new Date(result.scrapedAt).toLocaleString()}
+                </div>
+            `;
+            
+            // Update interactions
+            if (result.interactions && (result.interactions.clicks.length > 0 || result.interactions.scrolls > 0)) {
+                interactionsCard.style.display = 'block';
+                interactionsContent.innerHTML = `
+                    <div class="interaction-item">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <strong>Clicks:</strong> ${result.interactions.clicks.length}
+                    </div>
+                    <div class="interaction-item">
+                        <i class="fas fa-mouse"></i>
+                        <strong>Scrolls:</strong> ${result.interactions.scrolls}
+                    </div>
+                    <div class="interaction-item">
+                        <i class="fas fa-file"></i>
+                        <strong>Pages:</strong> ${result.interactions.pages.length}
+                    </div>
+                    ${result.interactions.clicks.length > 0 ? `
+                        <div class="interaction-details">
+                            <strong>Click Log:</strong>
+                            <ul>
+                                ${result.interactions.clicks.map(click => `<li>${click}</li>`).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                `;
+            } else {
+                interactionsCard.style.display = 'none';
+            }
+            
+            // Update sections list
+            updateSectionsList(sections);
+            
+            // Update raw JSON
+            updateRawJson(data);
+            
+            // Enable download button
+            downloadBtn.disabled = false;
+        }
+        
+        function updateSectionsList(sections) {
+            sectionsList.innerHTML = '';
+            
+            if (sections.length === 0) {
+                sectionsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <p>No sections found</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            sections.forEach((section, index) => {
+                const sectionCard = document.createElement('div');
+                sectionCard.className = 'card section-card';
+                sectionCard.innerHTML = `
+                    <div class="section-header">
+                        <div class="section-title">
+                            <span class="section-type ${section.type}">${section.type}</span>
+                            <strong>${section.label}</strong>
+                        </div>
+                        <div class="section-stats">
+                            <span class="section-stat">
+                                <i class="fas fa-font"></i>
+                                ${section.content.text?.length?.toLocaleString() || 0} chars
+                            </span>
+                            <span class="section-stat">
+                                <i class="fas fa-link"></i>
+                                ${section.content.links?.length || 0}
+                            </span>
+                            <span class="section-stat">
+                                <i class="fas fa-image"></i>
+                                ${section.content.images?.length || 0}
+                            </span>
+                            <button class="btn btn-secondary btn-sm toggle-section">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        ${section.content.headings?.length > 0 ? `
+                            <div class="content-headings">
+                                <strong>Headings:</strong>
+                                <ul>
+                                    ${section.content.headings.map(h => `<li>${h}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                        
+                        ${section.content.text ? `
+                            <div class="content-text">
+                                <strong>Text Preview:</strong>
+                                <p class="preview-text">${section.content.text.substring(0, 200)}${section.content.text.length > 200 ? '...' : ''}</p>
+                            </div>
+                        ` : ''}
+                        
+                        ${section.content.images?.length > 0 ? `
+                            <div class="content-images">
+                                <strong>Images (${section.content.images.length}):</strong>
+                                <div class="images-grid">
+                                    ${section.content.images.slice(0, 3).map(img => `
+                                        <div class="image-preview">
+                                            <img src="${img.src}" alt="${img.alt}" class="preview-image" onerror="this.style.display='none'">
+                                            <small>${img.alt || 'No alt text'}</small>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="section-actions">
+                            <button class="btn btn-secondary btn-sm view-json" data-section="${index}">
+                                <i class="fas fa-code"></i>
+                                View JSON
+                            </button>
+                            <button class="btn btn-secondary btn-sm copy-links" data-section="${index}">
+                                <i class="fas fa-copy"></i>
+                                Copy Links
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                // Add toggle functionality
+                const toggleBtn = sectionCard.querySelector('.toggle-section');
+                const sectionContent = sectionCard.querySelector('.section-content');
+                
+                toggleBtn.addEventListener('click', () => {
+                    sectionCard.classList.toggle('expanded');
+                    const icon = toggleBtn.querySelector('i');
+                    icon.className = sectionCard.classList.contains('expanded') 
+                        ? 'fas fa-chevron-up' 
+                        : 'fas fa-chevron-down';
+                });
+                
+                // Add JSON view functionality
+                const viewJsonBtn = sectionCard.querySelector('.view-json');
+                viewJsonBtn.addEventListener('click', () => {
+                    showSectionJson(sections[index]);
+                });
+                
+                // Add copy links functionality
+                const copyLinksBtn = sectionCard.querySelector('.copy-links');
+                copyLinksBtn.addEventListener('click', () => {
+                    const links = sections[index].content.links || [];
+                    const linkText = links.map(l => l.href).join('\n');
+                    navigator.clipboard.writeText(linkText);
+                    showToast(`Copied ${links.length} links to clipboard`, 'success');
+                });
+                
+                sectionsList.appendChild(sectionCard);
+            });
+        }
+        
+        function showSectionJson(section) {
+            const jsonStr = JSON.stringify(section, null, 2);
+            const modal = createModal('Section JSON', `
+                <div class="json-viewer">${syntaxHighlight(jsonStr)}</div>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" id="copy-json">
+                        <i class="fas fa-copy"></i>
+                        Copy JSON
+                    </button>
+                    <button class="btn btn-secondary" id="close-modal">
+                        Close
+                    </button>
+                </div>
+            `);
+            
+            document.body.appendChild(modal);
+            
+            modal.querySelector('#copy-json').addEventListener('click', () => {
+                navigator.clipboard.writeText(jsonStr);
+                showToast('JSON copied to clipboard', 'success');
+            });
+            
+            modal.querySelector('#close-modal').addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+        }
+        
+        function updateRawJson(data) {
+            const jsonStr = JSON.stringify(data, null, 2);
+            document.getElementById('raw-json').innerHTML = syntaxHighlight(jsonStr);
+        }
+        
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, 
+                function(match) {
+                    let cls = 'json-number';
+                    if (/^"/.test(match)) {
+                        if (/:$/.test(match)) {
+                            cls = 'json-key';
+                        } else {
+                            cls = 'json-string';
+                        }
+                    } else if (/true|false/.test(match)) {
+                        cls = 'json-boolean';
+                    } else if (/null/.test(match)) {
+                        cls = 'json-null';
+                    }
+                    return '<span class="' + cls + '">' + match + '</span>';
+                });
+        }
+        
+        // Charts
+        function initCharts() {
+            if (!lastResponse) return;
+            
+            const sections = lastResponse.result.sections || [];
+            
+            // Destroy existing charts
+            if (contentChart) contentChart.destroy();
+            if (typeChart) typeChart.destroy();
+            
+            // Content distribution chart
+            const contentCtx = document.getElementById('content-chart').getContext('2d');
+            const contentData = {
+                labels: sections.map(s => s.label.substring(0, 20) + (s.label.length > 20 ? '...' : '')),
+                datasets: [{
+                    label: 'Text Length',
+                    data: sections.map(s => s.content.text?.length || 0),
+                    backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                    borderColor: 'rgba(37, 99, 235, 1)',
+                    borderWidth: 1
+                }]
+            };
+            
+            contentChart = new Chart(contentCtx, {
+                type: 'bar',
+                data: contentData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Content Distribution by Section'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Characters'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Type distribution chart
+            const typeCtx = document.getElementById('type-chart').getContext('2d');
+            const typeCounts = {};
+            sections.forEach(s => {
+                typeCounts[s.type] = (typeCounts[s.type] || 0) + 1;
+            });
+            
+            const typeData = {
+                labels: Object.keys(typeCounts),
+                datasets: [{
+                    data: Object.values(typeCounts),
+                    backgroundColor: [
+                        'rgba(37, 99, 235, 0.6)',
+                        'rgba(124, 58, 237, 0.6)',
+                        'rgba(5, 150, 105, 0.6)',
+                        'rgba(245, 158, 11, 0.6)',
+                        'rgba(236, 72, 153, 0.6)',
+                        'rgba(139, 92, 246, 0.6)',
+                    ]
+                }]
+            };
+            
+            typeChart = new Chart(typeCtx, {
+                type: 'doughnut',
+                data: typeData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Section Type Distribution'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Export Functions
+        function initExportButtons() {
+            // Download JSON
+            downloadBtn.addEventListener('click', () => {
+                if (!lastResponse) return;
+                
+                const dataStr = JSON.stringify(lastResponse, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const exportFileDefaultName = `scrape-result-${new Date().toISOString().slice(0, 10)}.json`;
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+                
+                showToast('JSON file downloaded', 'success');
+            });
+            
+            // Export buttons
+            document.getElementById('export-json').addEventListener('click', () => {
+                if (!lastResponse) return;
+                exportAsJson();
+            });
+            
+            document.getElementById('export-csv').addEventListener('click', () => {
+                if (!lastResponse) return;
+                exportAsCsv();
+            });
+            
+            document.getElementById('export-markdown').addEventListener('click', () => {
+                if (!lastResponse) return;
+                exportAsMarkdown();
+            });
+        }
+        
+        function exportAsJson() {
+            const dataStr = JSON.stringify(lastResponse, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `scrape-${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Exported as JSON', 'success');
+        }
+        
+        function exportAsCsv() {
+            const sections = lastResponse.result.sections || [];
+            let csvContent = 'ID,Type,Label,Text Length,Headings Count,Links Count,Images Count\n';
+            
+            sections.forEach(s => {
+                csvContent += `"${s.id}","${s.type}","${s.label.replace(/"/g, '""')}",${s.content.text?.length || 0},${s.content.headings?.length || 0},${s.content.links?.length || 0},${s.content.images?.length || 0}\n`;
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `sections-${new Date().toISOString().slice(0, 10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Exported as CSV', 'success');
+        }
+        
+        function exportAsMarkdown() {
+            const result = lastResponse.result;
+            let markdown = `# Scraping Report: ${result.meta.title || result.url}\n\n`;
+            markdown += `**URL:** ${result.url}\n`;
+            markdown += `**Scraped At:** ${new Date(result.scrapedAt).toLocaleString()}\n`;
+            markdown += `**Strategy:** ${result.meta.strategy || 'static'}\n\n`;
+            
+            markdown += `## Sections (${result.sections.length})\n\n`;
+            
+            result.sections.forEach((section, index) => {
+                markdown += `### ${section.label} (${section.type})\n\n`;
+                
+                if (section.content.headings?.length > 0) {
+                    markdown += `#### Headings\n`;
+                    section.content.headings.forEach(h => {
+                        markdown += `- ${h}\n`;
+                    });
+                    markdown += '\n';
+                }
+                
+                if (section.content.text) {
+                    markdown += `#### Text\n${section.content.text.substring(0, 500)}${section.content.text.length > 500 ? '...' : ''}\n\n`;
+                }
+                
+                if (section.content.links?.length > 0) {
+                    markdown += `#### Links (${section.content.links.length})\n`;
+                    section.content.links.slice(0, 10).forEach(link => {
+                        markdown += `- [${link.text || link.href}](${link.href})\n`;
+                    });
+                    if (section.content.links.length > 10) {
+                        markdown += `- ... and ${section.content.links.length - 10} more links\n`;
+                    }
+                    markdown += '\n';
+                }
+                
+                markdown += '---\n\n';
+            });
+            
+            const blob = new Blob([markdown], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `report-${new Date().toISOString().slice(0, 10)}.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Exported as Markdown', 'success');
+        }
+        
+        // Recent Scrapes
+        function loadRecentScrapes() {
+            const recent = JSON.parse(localStorage.getItem('recentScrapes') || '[]');
+            const recentList = document.getElementById('recent-list');
+            
+            if (recent.length === 0) {
+                return;
+            }
+            
+            recentList.innerHTML = '';
+            recent.slice(-5).reverse().forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'recent-item';
+                div.innerHTML = `
+                    <div class="recent-url">${item.url.replace(/^https?:\/\//, '').split('/')[0]}</div>
+                    <div class="recent-info">
+                        <span class="recent-sections">${item.sections} sections</span>
+                        <span class="recent-time">${formatTimeAgo(item.time)}</span>
+                    </div>
+                    <button class="btn btn-sm btn-secondary" data-url="${item.url}">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                `;
+                
+                div.querySelector('button').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    urlInput.value = item.url;
+                    startScraping(item.url);
+                });
+                
+                recentList.appendChild(div);
+            });
+        }
+        
+        function addToRecentScrapes(url, result) {
+            const recent = JSON.parse(localStorage.getItem('recentScrapes') || '[]');
+            
+            // Remove if already exists
+            const index = recent.findIndex(item => item.url === url);
+            if (index > -1) {
+                recent.splice(index, 1);
+            }
+            
+            // Add to beginning
+            recent.unshift({
+                url: url,
+                sections: result.sections.length,
+                strategy: result.meta.strategy,
+                time: new Date().toISOString()
+            });
+            
+            // Keep only last 10
+            if (recent.length > 10) {
+                recent.pop();
+            }
+            
+            localStorage.setItem('recentScrapes', JSON.stringify(recent));
+            loadRecentScrapes();
+        }
+        
+        function formatTimeAgo(isoString) {
+            const date = new Date(isoString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            
+            if (diffMins < 1) return 'just now';
+            if (diffMins < 60) return `${diffMins}m ago`;
+            if (diffHours < 24) return `${diffHours}h ago`;
+            if (diffDays < 7) return `${diffDays}d ago`;
+            return date.toLocaleDateString();
+        }
+        
+        // Stats
+        function updateStats() {
+            // In a real app, you would fetch these from the server
+            document.getElementById('total-scrapes').textContent = '42';
+            document.getElementById('success-rate').textContent = '95%';
+            document.getElementById('avg-time').textContent = '8.2s';
+        }
+        
+        // Toast System
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${getToastIcon(type)}"></i>
+                <span>${message}</span>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse forwards';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 5000);
+        }
+        
+        function getToastIcon(type) {
+            switch(type) {
+                case 'success': return 'check-circle';
+                case 'error': return 'exclamation-circle';
+                case 'warning': return 'exclamation-triangle';
+                default: return 'info-circle';
+            }
+        }
+        
+        // Modal System
+        function createModal(title, content) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.className = 'modal-content';
+            modalContent.style.cssText = `
+                background: var(--color-surface);
+                border-radius: 1rem;
+                padding: 2rem;
+                max-width: 90vw;
+                max-height: 90vh;
+                overflow: auto;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            `;
+            
+            modalContent.innerHTML = `
+                <h2 style="margin-bottom: 1rem;">${title}</h2>
+                ${content}
+            `;
+            
+            modal.appendChild(modalContent);
+            
+            // Close on background click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+            
+            return modal;
+        }
+        
+        // Copy API
+        document.getElementById('copy-api').addEventListener('click', () => {
+            const apiCode = 'POST /scrape\nContent-Type: application/json\n\n{\n  "url": "https://example.com"\n}';
+            navigator.clipboard.writeText(apiCode);
+            showToast('API example copied', 'success');
+        });
+        
+        // Docs Link
+        document.getElementById('docs-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            showToast('Documentation coming soon!', 'info');
+        });
+    </script>
+</body>
+</html>
