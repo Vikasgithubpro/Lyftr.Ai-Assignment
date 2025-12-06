@@ -2,7 +2,6 @@
 
 A modern, feature-rich web scraper with beautiful UI, supporting both static and JavaScript-rendered websites.
 
-![Scraper Screenshot](https://via.placeholder.com/800x400/2563eb/ffffff?text=Universal+Website+Scraper)
 
 ## ✨ Features
 
