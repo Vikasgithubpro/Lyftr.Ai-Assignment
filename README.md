@@ -168,6 +168,32 @@ Used to test multi-page traversal and scroll depth tracking.
 ```
 ---
 
+### 📸 Screenshots
+
+#### Home Page – Hero Section
+![Home](./screenshots/home-hero.png)
+
+#### URL Input + Scraping Options
+![URL Input](./screenshots/url-input-and-options.png)
+
+#### Overview Metrics
+![Overview](./screenshots/scrape-overview-metrics.png)
+
+#### Page Metadata
+![Metadata](./screenshots/page-metadata.png)
+
+#### Hero Section Viewer
+![Hero Section](./screenshots/section-viewer-hero.png)
+
+#### Visualization Charts
+![Charts](./screenshots/visualization-charts.png)
+
+#### Dashboard Main
+![Dashboard Main](./screenshots/dashboard-main.png)
+
+#### System Status Dashboard
+![Dashboard Status](./screenshots/dashboard-system-status.png)
+
 # 📝 **Known Limitations**
 
 * JS-heavy frameworks with virtualized content may require additional wait strategies.
