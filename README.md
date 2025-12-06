@@ -190,7 +190,7 @@ Used to test multi-page traversal and scroll depth tracking.
 #### Dashboard Main
 ![Dashboard Main](./Screenshots/dashboard-main.png.png)
 
-#### System Status Dashboard
+#### Performance Metrics & System Status Dashboard
 ![Dashboard Status](./Screenshots/dashboard-system-status.png.png)
 
 ---
