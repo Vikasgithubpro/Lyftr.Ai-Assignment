@@ -180,19 +180,19 @@ Used to test multi-page traversal and scroll depth tracking.
 ![Overview](./screenshots/scrape-overview-metrics.png)
 
 #### Page Metadata
-![Metadata](./screenshots/page-metadata.png)
+![Metadata](./Project Snapshot/page-metadata.png)
 
 #### Hero Section Viewer
-![Hero Section](./screenshots/section-viewer-hero.png)
+![Hero Section](./Project Snapshot/section-viewer-hero.png)
 
 #### Visualization Charts
-![Charts](./screenshots/visualization-charts.png)
+![Charts](./Project Snapshot/visualization-charts.png)
 
 #### Dashboard Main
-![Dashboard Main](./screenshots/dashboard-main.png)
+![Dashboard Main](./Project Snapshot/dashboard-main.png)
 
 #### System Status Dashboard
-![Dashboard Status](./screenshots/dashboard-system-status.png)
+![Dashboard Status](./Project Snapshot/dashboard-system-status.png)
 
 # 📝 **Known Limitations**
 
