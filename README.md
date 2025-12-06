@@ -166,12 +166,11 @@ Used to test multi-page traversal and scroll depth tracking.
 ├── design_notes.md
 └── capabilities.json
 ```
----
 
 ### 📸 Screenshots
 
 #### Home Page – Hero Section
-![Home](./Lyftr.Ai-Assignment/Project Snapshot/home-hero.png)
+![Home](./screenshots/home-hero.png)
 
 #### URL Input + Scraping Options
 ![URL Input](./screenshots/url-input-and-options.png)
@@ -180,19 +179,21 @@ Used to test multi-page traversal and scroll depth tracking.
 ![Overview](./screenshots/scrape-overview-metrics.png)
 
 #### Page Metadata
-![Metadata](./Project Snapshot/page-metadata.png)
+![Metadata](./screenshots/page-metadata.png)
 
 #### Hero Section Viewer
-![Hero Section](./Project Snapshot/section-viewer-hero.png)
+![Hero Section](./screenshots/section-viewer-hero.png)
 
 #### Visualization Charts
-![Charts](./Project Snapshot/visualization-charts.png)
+![Charts](./screenshots/visualization-charts.png)
 
 #### Dashboard Main
-![Dashboard Main](./Project Snapshot/dashboard-main.png)
+![Dashboard Main](./screenshots/dashboard-main.png)
 
 #### System Status Dashboard
-![Dashboard Status](./Project Snapshot/dashboard-system-status.png)
+![Dashboard Status](./screenshots/dashboard-system-status.png)
+
+---
 
 # 📝 **Known Limitations**
 
