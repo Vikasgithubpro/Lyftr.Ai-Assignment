@@ -39,7 +39,7 @@ A comprehensive full‑stack web scraping solution built for the Lyftr AI Full�
 
 ---
 
-### 📸 Screenshots
+### 📸 User Interface Screenshots
 
 #### Home Page – Hero Section
 ![Home](./Screenshots/home-hero.png.png)
