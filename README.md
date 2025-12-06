@@ -171,7 +171,7 @@ Used to test multi-page traversal and scroll depth tracking.
 ### 📸 Screenshots
 
 #### Home Page – Hero Section
-![Home](./screenshots/home-hero.png)
+![Home](screenshots/home-hero.png)
 
 #### URL Input + Scraping Options
 ![URL Input](./screenshots/url-input-and-options.png)
