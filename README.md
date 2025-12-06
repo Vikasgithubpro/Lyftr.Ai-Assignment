@@ -171,7 +171,7 @@ Used to test multi-page traversal and scroll depth tracking.
 ### 📸 Screenshots
 
 #### Home Page – Hero Section
-![Home](/Project Snapshot/home-hero.png)
+![Home](./Lyftr.Ai-Assignment/Project Snapshot/home-hero.png)
 
 #### URL Input + Scraping Options
 ![URL Input](./screenshots/url-input-and-options.png)
