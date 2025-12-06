@@ -97,7 +97,7 @@ App will be live at:
 
 ---
 
-### ▶ **Using `run.sh` **
+### ▶ Using `run.sh`
 
 
 
